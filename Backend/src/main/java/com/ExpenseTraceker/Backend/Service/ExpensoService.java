@@ -11,9 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Year;
 import java.time.YearMonth;
 import java.util.*;
 
@@ -22,10 +20,8 @@ public class ExpensoService {
     @Autowired
     private ExpensoRepository expensoRepository;
 
-    @Autowired
-    private Expenso expenso;
-
     public ExpensoResponse createExpenso(ExpensoRequest expensoRequest) {
+        Expenso expenso = new Expenso();
         BeanUtils.copyProperties(expensoRequest, expenso);
         expenso.setDate(LocalDateTime.now());
         Expenso save = expensoRepository.save(expenso);
@@ -107,18 +103,20 @@ public class ExpensoService {
 
     public MonthlyResponse getMonthlyExpense(int month, int year){
         LocalDateTime start = LocalDateTime.of(year, month, 1, 0, 0, 0);
-        LocalDateTime end = YearMonth.of(year,month).atEndOfMonth().atStartOfDay();
+        LocalDateTime end = YearMonth.of(year,month).atEndOfMonth().atTime(23, 59, 59);
         List<Expenso> range = expensoRepository.findByDateBetween(start, end);
         BigDecimal totalAmount = BigDecimal.ZERO;
         for (Expenso expenso : range) {
             BigDecimal amount = expenso.getAmount();
-            totalAmount = totalAmount.add(amount);
+            if (amount != null) {
+                totalAmount = totalAmount.add(amount);
+            }
         }
         Map<String,Double> categoryWise = new HashMap<>();
         for (Expenso expenso : range) {
             String category = expenso.getCategory();
             BigDecimal amount = expenso.getAmount();
-
+            if (amount == null) continue;
 
             if(categoryWise.containsKey(category)){
                 categoryWise.put(category, categoryWise.get(category)+amount.doubleValue());
