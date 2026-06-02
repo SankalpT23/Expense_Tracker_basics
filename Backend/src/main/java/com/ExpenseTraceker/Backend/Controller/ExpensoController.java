@@ -1,9 +1,10 @@
-package com.ExpenseTraceker.Backend.Controller;
+    package com.ExpenseTraceker.Backend.Controller;
 
 import com.ExpenseTraceker.Backend.DTO.ExpensoRequest;
 import com.ExpenseTraceker.Backend.DTO.ExpensoResponse;
 import com.ExpenseTraceker.Backend.DTO.MonthlyResponse;
 import com.ExpenseTraceker.Backend.Service.ExpensoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,7 @@ public class ExpensoController {
     private ExpensoService service;
 
     @PostMapping
-    public ResponseEntity<ExpensoResponse> createNewExpense(@RequestBody ExpensoRequest request){
+    public ResponseEntity<ExpensoResponse> createNewExpense(@Valid @RequestBody ExpensoRequest request){
         ExpensoResponse expenso = service.createExpenso(request);
         return new ResponseEntity<>(expenso , HttpStatus.CREATED);
     }
@@ -35,7 +36,7 @@ public class ExpensoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ExpensoResponse> updateExpenses(@RequestBody ExpensoRequest request, @PathVariable Long id){
+    public ResponseEntity<ExpensoResponse> updateExpenses(@Valid @RequestBody ExpensoRequest request, @PathVariable Long id){
         ExpensoResponse expensoResponse = service.updateExpenso(request, id);
         return new ResponseEntity<>(expensoResponse,HttpStatus.OK);
     }
