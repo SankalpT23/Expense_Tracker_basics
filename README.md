@@ -46,18 +46,13 @@ Track expenses by category, visualize spending trends with dynamic charts, and g
 
 ### Frontend
 - **Dashboard** — Overview with stat cards, cumulative spending area chart, and recent expenses
-- **Dynamic Greeting** — Time-aware welcome message (Morning/Afternoon/Evening)
 - **Expenses Page** — Full CRUD with search, category filter chips, edit/delete actions
-- **CSV Export** — Export filtered expenses to CSV with one click
 - **Analytics Page** — Monthly breakdown with donut chart, bar chart, and detailed table
 - **Dark Glassmorphism UI** — Modern design with gradient accents and micro-animations
 - **Responsive Design** — Adapts to desktop, tablet, and mobile screens
 
 ### Backend
 - **RESTful API** — 7 endpoints for complete expense management
-- **Input Validation** — Jakarta Bean Validation on all request DTOs
-- **Structured Error Responses** — Consistent JSON error bodies with timestamps and status codes
-- **SLF4J Logging** — Comprehensive logging across service and exception layers
 - **Category Filtering** — Filter expenses by category
 - **Date Range Queries** — Filter expenses within custom date ranges
 - **Monthly Summary** — Aggregated spending with per-category breakdown
@@ -70,7 +65,7 @@ Track expenses by category, visualize spending trends with dynamic charts, and g
 | Layer | Technologies |
 |-------|-------------|
 | **Frontend** | React 18, Vite, Axios, Recharts, Framer Motion, Lucide React, React Hot Toast |
-| **Backend** | Java 21, Spring Boot 3.5, Spring Data JPA, Jakarta Validation, Lombok |
+| **Backend** | Java 21, Spring Boot 3.5, Spring Data JPA, Lombok |
 | **Database** | MySQL 8.0 |
 | **Styling** | Vanilla CSS with custom properties, Google Fonts (Inter) |
 
@@ -84,18 +79,16 @@ Expenso/
 │   └── src/main/java/.../Backend/
 │       ├── Config/                   # CORS configuration
 │       ├── Controller/               # REST endpoints
-│       ├── DTO/                      # Request/Response objects + ErrorResponse
-│       ├── Exception/                # Global exception handler
+│       ├── DTO/                      # Request/Response objects
 │       ├── Model/                    # JPA Entity
 │       ├── Repository/               # Data access layer
-│       └── Service/                  # Business logic + logging
+│       └── Service/                  # Business logic
 │
 ├── Frontend/                         # React + Vite SPA
 │   ├── src/
 │   │   ├── api/                      # Axios API service
 │   │   ├── components/               # Sidebar, StatCard, ExpenseModal
-│   │   ├── pages/                    # Dashboard, Expenses, Analytics
-│   │   └── utils/                    # Export utilities (CSV)
+│   │   └── pages/                    # Dashboard, Expenses, Analytics
 │   ├── .env                          # API base URL config
 │   ├── vercel.json                   # Vercel SPA routing
 │   └── vite.config.js
@@ -184,33 +177,6 @@ GET /expenso/summary?month=4&year=2026
 ## 📄 License
 
 This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Here's how to get started:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
----
-
-## 📋 Changelog
-
-### v1.1 (June 2026)
-- ✅ CSV export for expenses
-- ✅ Jakarta Bean Validation on request DTOs
-- ✅ Structured JSON error responses
-- ✅ SLF4J logging across service layer
-- ✅ Time-aware dashboard greeting
-- ✅ Improved `.gitignore` coverage
-
-### v1.0 (May 2026)
-- 🚀 Initial release with full CRUD, analytics, and glassmorphism UI
 
 ---
 

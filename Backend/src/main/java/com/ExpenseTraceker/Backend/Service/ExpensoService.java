@@ -6,7 +6,6 @@ import com.ExpenseTraceker.Backend.DTO.MonthlyResponse;
 import com.ExpenseTraceker.Backend.Exception.ExpensoNotFoundException;
 import com.ExpenseTraceker.Backend.Model.Expenso;
 import com.ExpenseTraceker.Backend.Repository.ExpensoRepository;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,20 +15,16 @@ import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.util.*;
 
-@Slf4j
 @Service
 public class ExpensoService {
     @Autowired
     private ExpensoRepository expensoRepository;
 
     public ExpensoResponse createExpenso(ExpensoRequest expensoRequest) {
-        log.info("Creating new expense: title='{}', category='{}', amount={}",
-                expensoRequest.getTitle(), expensoRequest.getCategory(), expensoRequest.getAmount());
         Expenso expenso = new Expenso();
         BeanUtils.copyProperties(expensoRequest, expenso);
         expenso.setDate(LocalDateTime.now());
         Expenso save = expensoRepository.save(expenso);
-        log.debug("Expense created with id={}", save.getId());
 
         return ExpensoResponse.builder()
                 .id(save.getId())
@@ -43,7 +38,6 @@ public class ExpensoService {
 
 
     public ExpensoResponse updateExpenso(ExpensoRequest expensoRequest,Long id) {
-        log.info("Updating expense id={}", id);
         Expenso existingExpense = expensoRepository.findById(id).orElseThrow(() -> new ExpensoNotFoundException("Expense Not Found with Id : " + id));
         existingExpense.setTitle(expensoRequest.getTitle());
         existingExpense.setNote(expensoRequest.getNote());
@@ -64,10 +58,8 @@ public class ExpensoService {
     }
 
     public List<ExpensoResponse> getAllExpenso() {
-        log.debug("Fetching all expenses");
         List<ExpensoResponse> expenses = new ArrayList<>();
         List<Expenso> expensesList = expensoRepository.findAll();
-        log.info("Found {} total expenses", expensesList.size());
         for (Expenso expenso : expensesList) {
             ExpensoResponse expensoResponse = new ExpensoResponse();
             BeanUtils.copyProperties(expenso, expensoResponse);
@@ -88,7 +80,6 @@ public class ExpensoService {
     }
 
     public ExpensoResponse getExpenseById(Long id){
-        log.debug("Fetching expense by id={}", id);
         Expenso byId = expensoRepository.findById(id).orElseThrow(() -> new ExpensoNotFoundException("Expense Not Found By Id : " + id));
         ExpensoResponse expensoResponse = new ExpensoResponse();
         BeanUtils.copyProperties(byId, expensoResponse);
@@ -96,9 +87,7 @@ public class ExpensoService {
     }
 
     public void deleteExpense(Long id){
-        log.info("Deleting expense id={}", id);
         expensoRepository.deleteById(id);
-        log.debug("Expense id={} deleted successfully", id);
     }
 
     public List<ExpensoResponse> getExpenseByDate(LocalDateTime start, LocalDateTime end){
@@ -113,7 +102,6 @@ public class ExpensoService {
     }
 
     public MonthlyResponse getMonthlyExpense(int month, int year){
-        log.info("Generating monthly summary for {}/{}", month, year);
         LocalDateTime start = LocalDateTime.of(year, month, 1, 0, 0, 0);
         LocalDateTime end = YearMonth.of(year,month).atEndOfMonth().atTime(23, 59, 59);
         List<Expenso> range = expensoRepository.findByDateBetween(start, end);

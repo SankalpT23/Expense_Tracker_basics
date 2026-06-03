@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, Search, Filter, Pencil, Trash2, Receipt, X, Download } from 'lucide-react';
+import { Plus, Search, Filter, Pencil, Trash2, Receipt, X } from 'lucide-react';
 import { getAllExpenses, createExpense, updateExpense, deleteExpense, getExpensesByCategory, CATEGORIES, getCategoryIcon, getCategoryColor } from '../api/expensoApi';
 import ExpenseModal from '../components/ExpenseModal';
 import toast from 'react-hot-toast';
-import { exportExpenses } from '../utils/exportCsv';
 import './Expenses.css';
 
 function Expenses() {
@@ -125,25 +124,10 @@ function Expenses() {
             <h1>Expenses</h1>
             <p>Manage and track all your expenses</p>
           </div>
-          <div style={{ display: 'flex', gap: '8px' }}>
-            <button
-              className="btn btn-secondary"
-              onClick={() => {
-                exportExpenses(filteredExpenses);
-                toast.success(`Exported ${filteredExpenses.length} expense${filteredExpenses.length !== 1 ? 's' : ''} to CSV`);
-              }}
-              disabled={filteredExpenses.length === 0}
-              id="export-csv-btn"
-              title="Export to CSV"
-            >
-              <Download size={18} />
-              Export
-            </button>
-            <button className="btn btn-primary" onClick={handleAdd} id="add-expense-btn">
-              <Plus size={18} />
-              Add Expense
-            </button>
-          </div>
+          <button className="btn btn-primary" onClick={handleAdd} id="add-expense-btn">
+            <Plus size={18} />
+            Add Expense
+          </button>
         </div>
       </div>
 

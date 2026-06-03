@@ -52,7 +52,7 @@ function Sidebar() {
         {/* Footer */}
         <div className="sidebar-footer">
           <div className="sidebar-footer-card">
-            <p className="footer-title">Expenso v1.1</p>
+            <p className="footer-title">Expenso v1.0</p>
             <p className="footer-subtitle">Track smarter, spend wiser</p>
           </div>
         </div>

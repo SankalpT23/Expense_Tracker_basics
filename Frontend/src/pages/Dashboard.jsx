@@ -112,12 +112,7 @@ function Dashboard() {
     <div className="dashboard" id="dashboard-page">
       <div className="page-header">
         <h1>Dashboard</h1>
-        <p>{(() => {
-          const hour = new Date().getHours();
-          if (hour < 12) return '☀️ Good Morning! Here\'s your financial overview.';
-          if (hour < 17) return '🌤️ Good Afternoon! Here\'s your spending snapshot.';
-          return '🌙 Good Evening! Let\'s review your finances.';
-        })()}</p>
+        <p>Welcome back! Here's your financial overview.</p>
       </div>
 
       {/* Stat Cards */}

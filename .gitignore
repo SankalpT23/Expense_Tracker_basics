@@ -6,26 +6,13 @@
 # OS
 .DS_Store
 Thumbs.db
-desktop.ini
 
 # Backend
 Backend/target/
 Backend/*.log
-Backend/logs/
 
 # Frontend
 Frontend/node_modules/
 Frontend/dist/
 Frontend/.env.local
 Frontend/.env.*.local
-
-# Environment files (avoid leaking secrets)
-.env
-*.env.local
-
-# Logs
-*.log
-npm-debug.log*
-
-# Editor config
-.gemini/
